@@ -18,6 +18,9 @@ public class BarChartDataEntry: ChartDataEntry
     /// the values the stacked barchart holds
     private var _values: [Double]?
     
+    /// the labels the stacked barchart holds
+    private var _label: String?
+    
     /// the sum of all negative values this entry (if stacked) contains
     private var _negativeSum: Double = 0.0
     
@@ -41,6 +44,13 @@ public class BarChartDataEntry: ChartDataEntry
     public override init(value: Double, xIndex: Int)
     {
         super.init(value: value, xIndex: xIndex)
+    }
+    
+    /// Constructor for normal bars (not stacked).
+    public init(value: Double, xIndex: Int, label: String)
+    {
+        super.init(value: value, xIndex: xIndex)
+        self.label = label
     }
     
     /// Constructor for stacked bar entries.
@@ -122,13 +132,23 @@ public class BarChartDataEntry: ChartDataEntry
     
     /// the values the stacked barchart holds
     public var values: [Double]?
-    {
+        {
         get { return self._values }
         set
         {
             self.value = BarChartDataEntry.calcSum(newValue)
             self._values = newValue
             calcPosNegSum()
+        }
+    }
+    
+    /// the labels the stacked barchart holds
+    public var label: String?
+        {
+        get { return self._label }
+        set
+        {
+            self._label = newValue
         }
     }
     
